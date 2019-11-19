@@ -1,5 +1,5 @@
 name: 'composer-php-gd-zip'
-description: 'Runs composer using php with gd and zip packages'
+description: 'Runs composer using php with gd and zip extensions'
 inputs:
   action:
     description: 'Command to run in composer, e.g. install'
