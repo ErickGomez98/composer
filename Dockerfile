@@ -8,10 +8,11 @@ RUN apk update && apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/
     git && \
     rm -rf /var/cache/apk/* && \
     set -xe && \
-        composer global require hirak/prestissimo && \     
+        composer global require hirak/prestissimo && \
         composer clear-cache
 
 
 COPY composer-entrypoint /usr/local/bin/composer-entrypoint
+RUN chmod +x /usr/local/bin/composer-entrypoint
 
 ENTRYPOINT ["/usr/local/bin/composer-entrypoint"]
