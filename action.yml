@@ -1,19 +1,15 @@
-name: 'composer-php'
-description: 'Runs composer (yml)'
+name: 'composer-php-gd-zip'
+description: 'Runs composer using php with gd and zip packages'
 inputs:
   action:
-    description: 'Action to run, e.g. install'
+    description: 'Command to run in composer, e.g. install'
     required: false
     default: install
-  options:
-    description: 'List of composer options'
-    required: false
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.action }}
-    - ${{ inputs.options }}
 branding:
     icon: 'download'
     color: 'orange'
