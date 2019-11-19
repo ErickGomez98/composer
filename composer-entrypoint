@@ -2,5 +2,5 @@
 
 set -e
 
-exec composer "$@"
+exec composer "$1"
 
