@@ -1,15 +1,17 @@
-FROM php:7-fpm
+FROM php:alpine
+RUN apk add --no-cache coreutils libpng-dev zlib-dev
+RUN docker-php-ext-install -j$(nproc) gd
 
-RUN apt-get update -y && apt-get install -y libwebp-dev libjpeg62-turbo-dev libpng-dev libxpm-dev \
-    libfreetype6-dev
-RUN apt-get update && \
-    apt-get install -y \
-        zlib1g-dev 
 
-RUN apt-get install -y libzip-dev
+RUN apk update && apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/edge/community \
+    composer \
+    git && \
+    rm -rf /var/cache/apk/* && \
+    set -xe && \
+        composer global require hirak/prestissimo && \     
+        composer clear-cache
 
-RUN docker-php-ext-configure gd --with-gd --with-webp-dir --with-jpeg-dir \
-    --with-png-dir --with-zlib-dir --with-xpm-dir --with-freetype-dir \
-    --enable-gd-native-ttf
 
-RUN docker-php-ext-install gd
+COPY composer-entrypoint /usr/local/bin/composer-entrypoint
+
+ENTRYPOINT ["/usr/local/bin/composer-entrypoint"]
